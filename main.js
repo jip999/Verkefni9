@@ -30,7 +30,6 @@ async function route() {
     main.removeChild(loadingScreen);
 
     await fetchAndRenderCategory(result.id, main, result.url);
-
     createCategoryBackLink(main.children, 1);
   }
 
