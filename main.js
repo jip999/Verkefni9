@@ -18,15 +18,20 @@ async function route() {
   // /?category=menning
   let location = window.location.search;
 
+  const loadingScreen = document.createElement('p');
+  loadingScreen.innerText = 'Sæki lista af fréttum...';
+  main.appendChild(loadingScreen);
+
   if (location !== '') {
 
     location = window.location.search.substr(10,window.location.search.length);
     
     result = await fetchNews(location);
+    main.removeChild(loadingScreen);
+
     await fetchAndRenderCategory(result.id, main, result.url);
 
     createCategoryBackLink(main.children, 1);
-
   }
 
   // Annars birtum við „forsíðu“
@@ -35,6 +40,8 @@ async function route() {
     main.className = 'newsList__list';
     
     result = await fetchNews();
+    main.removeChild(loadingScreen);
+
     const results = [];
 
     for (const object of result) {
