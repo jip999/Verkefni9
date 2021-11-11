@@ -23,9 +23,8 @@ async function route() {
   main.appendChild(loadingScreen);
 
   if (location !== '') {
+    location = window.location.search.substr(10, window.location.search.length);
 
-    location = window.location.search.substr(10,window.location.search.length);
-    
     result = await fetchNews(location);
     main.removeChild(loadingScreen);
 
@@ -35,20 +34,24 @@ async function route() {
 
   // Annars birtum við „forsíðu“
   else {
-
     main.className = 'newsList__list';
-    
+
     result = await fetchNews();
     main.removeChild(loadingScreen);
 
     const results = [];
 
     for (const object of result) {
-      results.push(fetchAndRenderCategory(
-      object.id, main, object.url, CATEGORY_ITEMS_ON_FRONTPAGE
-      ))
+      results.push(
+        fetchAndRenderCategory(
+          object.id,
+          main,
+          object.url,
+          CATEGORY_ITEMS_ON_FRONTPAGE
+        )
+      );
     }
-    
+
     await Promise.all(results);
 
     createCategoryBackLink(main.children, results.length);
