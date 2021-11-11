@@ -46,13 +46,6 @@ async function route() {
     await Promise.all(results);
 
     createCategoryBackLink(main.children, results.length);
-    
-      /*
-      const remove = await currentObject;
-      if (remove === null) {
-        document.getElementById(object.id).remove();
-      }
-      */
   }
 
   // Ef svo er, birtum fréttir fyrir þann flokk
@@ -65,7 +58,7 @@ async function route() {
  */
 window.onpopstate = () => {
   // TODO útfæra
-  window.history.go({id: null});
+  window.history.go(0);
 };
 
 // Í fyrsta skipti sem vefur er opnaður birtum við það sem beðið er um út frá URL
